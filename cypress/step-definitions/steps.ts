@@ -5,33 +5,42 @@ Given("I open the stereogram solver page", () => {
     cy.visit("https://piellardj.github.io/stereogram-solver/");
 });
 
-When("I select a Shark stereogram", () => {
+When("I select a \"Shark\" stereogram", () => {
     cy.get("select#preset-select").select("shark.jpg");
 });
 
+When("I select a \"Thumbs up\" stereogram", () => {
+    cy.get("select#preset-select").select("thumbsup.jpg");
+});
+
+When("I select a \"Planet\" stereogram", () => {
+    cy.get("select#preset-select").select("planet.jpg");
+});
+
+When("I select a \"Dolphins\" stereogram", () => {
+    cy.get("select#preset-select").select("dolphins.jpg");
+});
+
+When("I select a \"Atomium\" stereogram", () => {
+    cy.get("select#preset-select").select("atomium.jpg");
+});
+
 Then("I should see a shark silhouette", () => {
-    cy.get("canvas").get("canvas", { timeout: 10000 })
-        .should("be.visible")
-        .should(($canvas) => {
-            expect($canvas[0].width).to.be.greaterThan(0);
-            expect($canvas[0].height).to.be.greaterThan(0);
-        })
-        .then((canvas) => {
-            const dataUrl = canvas[0].toDataURL();
-            const base64 = dataUrl.replace(/^data:image\/png;base64,/, "");
-            const actualPath = "cypress/tmp/result.png";
-            cy.writeFile(actualPath, base64, "base64");
+    cy.compareCanvasWithReference("shark.png");
+});
 
-            const expectedPath = "cypress/fixtures/reference.png";
-            const diffPath = "cypress/tmp/diff.png";
+Then("I should see a thumbs up silhouette", () => {
+    cy.compareCanvasWithReference("thumbs-up.png");
+});
 
-            cy.task("compareImages", {
-                actualPath,
-                expectedPath,
-                diffPath,
-            }).then((mismatchedPixels) => {
-                expect(mismatchedPixels).to.be.lte(10, "Resulting image looks not the same as reference image");
-            });
-        });
+Then("I should see a planet silhouette", () => {
+    cy.compareCanvasWithReference("planet.png");
+});
 
+Then("I should see a dolphins silhouettes", () => {
+    cy.compareCanvasWithReference("dolphins.png");
+});
+
+Then("I should see an atomium silhouette", () => {
+    cy.compareCanvasWithReference("atomium.png");
 });
