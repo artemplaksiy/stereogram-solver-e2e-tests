@@ -14,7 +14,6 @@ export default defineConfig({
     ): Promise<Cypress.PluginConfigOptions> {
       await addCucumberPreprocessorPlugin(on, config);
 
-      // ✅ Dynamically import pixelmatch inside the task
       on("task", {
         async compareImages({ actualPath, expectedPath, diffPath }) {
           const pixelmatch = (await import("pixelmatch")).default;
