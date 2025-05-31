@@ -1,6 +1,7 @@
 {
   "devDependencies": {
     "@types/node": "^22.15.29",
+    "@types/pngjs": "^6.0.5",
     "cypress": "^14.4.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3"
@@ -8,6 +9,26 @@
   "dependencies": {
     "@badeball/cypress-cucumber-preprocessor": "^22.0.1",
     "@bahmutov/cypress-esbuild-preprocessor": "^2.2.5",
-    "@cypress/webpack-preprocessor": "^6.0.4"
-  }
+    "@cypress/webpack-preprocessor": "^6.0.4",
+    "pixelmatch": "^7.1.0",
+    "pngjs": "^7.0.0"
+  },
+  "name": "stereogram-solver-e2e-tests",
+  "description": "This is a repository for e2e testing of https://piellardj.github.io/stereogram-solver/",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/artemplaksiy/stereogram-solver-e2e-tests.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/artemplaksiy/stereogram-solver-e2e-tests/issues"
+  },
+  "homepage": "https://github.com/artemplaksiy/stereogram-solver-e2e-tests#readme"
 }
