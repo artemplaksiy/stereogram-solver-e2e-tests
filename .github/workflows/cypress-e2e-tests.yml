@@ -36,3 +36,16 @@ jobs:
 
       - name: Run Cypress tests
         run: npx cypress run --browser ${{ env.CYPRESS_BROWSER }} --env TAGS='not @ignore'
+
+      - name: Generate Mochawesome Report
+        if: always()
+        run: |
+          npx mochawesome-merge cypress/reports/*.json > cypress/reports/output.json
+          npx marge cypress/reports/output.json -f report -o cypress/reports/html
+
+      - name: Upload HTML Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Test-Report
+          path: cypress/reports/html/report.html

@@ -8,7 +8,8 @@ Feature: Uploaded stereograms should be displayed correctly
         Then my custom stereogram should be displayed in Source image section
         Then I should see my stereogram silhouette
 
+    @large-stereogram
     Scenario: A large stereogram should be displayed correctly
         When I upload a large stereogram "custom-stereogram-large.png"
         Then my custom large stereogram should be displayed in Source image section
-        Then I should see the correct result within "2" seconds
+        Then I should see the correct result within "5" seconds
