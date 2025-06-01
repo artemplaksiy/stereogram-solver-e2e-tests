@@ -5,12 +5,10 @@ import createEsbuildPlugin from "@badeball/cypress-cucumber-preprocessor/esbuild
 import { addMatchImageSnapshotPlugin } from '@simonsmith/cypress-image-snapshot/plugin'
 
 export default defineConfig({
-  reporter: 'cypress-mochawesome-reporter',
+  reporter: 'mocha-junit-reporter',
   reporterOptions: {
-    reportDir: 'cypress/reports',
-    overwrite: false,
-    html: false,
-    json: true,
+    mochaFile: 'results/junit/test-results.[hash].xml',
+    toConsole: false,
   },
   e2e: {
     specPattern: "**/*.feature",
