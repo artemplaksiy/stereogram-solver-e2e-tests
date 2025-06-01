@@ -50,5 +50,5 @@ jobs:
         with:
           name: Cypress Tests
           path: results/junit/*.xml
-          reporter: mocha-junit
+          reporter: mocha
           fail-on-error: false
