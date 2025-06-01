@@ -1,11 +1,26 @@
-name: Cypress E2E Tests
+name: Stereogram Solver E2E Tests
 
 on:
+  push:
+    branches: [main]
+
   workflow_dispatch:
+    inputs:
+      browser:
+        description: "Select browser to run e2e tests"
+        required: true
+        default: chrome
+        type: choice
+        options:
+          - chrome
+          - firefox
 
 jobs:
   cypress-run:
     runs-on: ubuntu-latest
+
+    env:
+      CYPRESS_BROWSER: ${{ github.event.inputs.browser || 'chrome' }}
 
     steps:
       - name: Checkout repository
@@ -20,4 +35,4 @@ jobs:
         run: npm ci
 
       - name: Run Cypress tests
-        run: npx cypress run
+        run: npx cypress run --browser ${{ env.CYPRESS_BROWSER }}
