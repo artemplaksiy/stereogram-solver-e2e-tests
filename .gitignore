@@ -5,3 +5,4 @@ cypress/snapshots/
 cypress/downloads/
 cypress/reports/
 cypress/screenshots/
+results/

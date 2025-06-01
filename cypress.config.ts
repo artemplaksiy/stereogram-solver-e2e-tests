@@ -17,11 +17,7 @@ export default defineConfig({
       config: Cypress.PluginConfigOptions
     ): Promise<Cypress.PluginConfigOptions> {
       await addCucumberPreprocessorPlugin(on, config);
-
       addMatchImageSnapshotPlugin(on)
-
-      require('cypress-mochawesome-reporter/plugin')(on);
-
       on(
         "file:preprocessor",
         createBundler({
