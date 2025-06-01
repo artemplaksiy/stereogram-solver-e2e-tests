@@ -4,7 +4,7 @@
 
 declare namespace Cypress {
   interface Chainable<Subject = any> {
-    compareCanvasWithReference(referenceName: string): Chainable<Subject>;
-    compareImgWithReference(referenceName: string): Chainable<Subject>;
+    compareCanvasWithSnapshot(referenceName: string, timeout?: number, shouldDiffer?: boolean): Chainable<Subject>;
+    compareImgWithSnapshot(referenceName: string, timeout?: number): Chainable<Subject>;
   }
 }

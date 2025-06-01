@@ -1,4 +1,6 @@
 import { Given, When, Then } from "@badeball/cypress-cucumber-preprocessor";
+import { should } from "chai";
+import 'cypress-file-upload';
 
 
 Given("I open the stereogram solver page", () => {
@@ -26,21 +28,62 @@ When("I select a \"Atomium\" stereogram", () => {
 });
 
 Then("I should see a shark silhouette", () => {
-    cy.compareCanvasWithReference("shark.png");
+    cy.compareCanvasWithSnapshot("shark.png");
 });
 
 Then("I should see a thumbs up silhouette", () => {
-    cy.compareCanvasWithReference("thumbs-up.png");
+    cy.compareCanvasWithSnapshot("thumbs-up.png");
 });
 
 Then("I should see a planet silhouette", () => {
-    cy.compareCanvasWithReference("planet.png");
+    cy.compareCanvasWithSnapshot("planet.png");
 });
 
 Then("I should see a dolphins silhouettes", () => {
-    cy.compareCanvasWithReference("dolphins.png");
+    cy.compareCanvasWithSnapshot("dolphins.png");
 });
 
 Then("I should see an atomium silhouette", () => {
-    cy.compareCanvasWithReference("atomium.png");
+    cy.compareCanvasWithSnapshot("atomium.png");
+});
+
+When("I upload my own stereogram {string}", (file: string) => {
+    cy.get('input[type="file"]').attachFile(`images/sources/${file}`);
+});
+
+Then("I should see my stereogram silhouette", () => {
+    cy.compareCanvasWithSnapshot("custom-stereogram-small.png");
+});
+
+When("I upload a large stereogram {string}", (file: string) => {
+    cy.get('input[type="file"]').attachFile(`images/sources/${file}`);
+});
+
+Then('I should see the correct result within {string} seconds', (seconds: string) => {
+    cy.compareCanvasWithSnapshot("custom-stereogram-large.png", parseInt(seconds, 10) * 1000);
+});
+
+Then('my custom stereogram should be displayed in Source image section', () => {
+    cy.compareImgWithSnapshot("images/sources/custom-stereogram-small.png");
+});
+
+Then('my custom large stereogram should be displayed in Source image section', () => {
+    cy.compareImgWithSnapshot("images/sources/custom-stereogram-large.png");
+});
+
+////
+Then('move displacement slider to {string} px', (input: string) => {
+    cy.get('.full-width-range')
+        .invoke('val', input)
+        .trigger('input');
+});
+
+Then('back to {string} px', (input: string) => {
+    cy.get('.full-width-range')
+        .invoke('val', input)
+        .trigger('input');
+});
+
+Then('I should not see my stereogram silhouette', () => {
+        cy.compareCanvasWithSnapshot("custom-stereogram-small.png", 2000, true);
 });

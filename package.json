@@ -1,8 +1,10 @@
 {
   "devDependencies": {
+    "@simonsmith/cypress-image-snapshot": "^9.1.0",
     "@types/node": "^22.15.29",
     "@types/pngjs": "^6.0.5",
     "cypress": "^14.4.0",
+    "cypress-file-upload": "^5.0.8",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3"
   },
