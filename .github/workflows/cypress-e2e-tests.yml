@@ -35,4 +35,4 @@ jobs:
         run: npm ci
 
       - name: Run Cypress tests
-        run: npx cypress run --browser ${{ env.CYPRESS_BROWSER }}
+        run: npx cypress run --browser ${{ env.CYPRESS_BROWSER }} --env TAGS='not @ignore'

@@ -3,7 +3,6 @@ Feature: Uploaded stereograms should be displayed correctly
     Background:
         Given I open the stereogram solver page
 
-    @debug
     Scenario: Custom stereogram should be displayed correctly
         When I upload my own stereogram "custom-stereogram-small.png"
         Then my custom stereogram should be displayed in Source image section
