@@ -38,17 +38,17 @@ jobs:
         run: npx cypress run --browser ${{ env.CYPRESS_BROWSER }} --env TAGS='not @ignore'
 
       - name: Upload JUnit Results
-        if: always()
         uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
         with:
           name: junit-results
           path: results/junit/
 
       - name: Report test results
-        if: always()
-        uses: dorny/test-reporter@v1
+        uses: dorny/test-reporter@v2
+        if: ${{ !cancelled() }} 
         with:
-          name: Cypress Tests
+          name: JEST Tests
           path: results/junit/*.xml
-          reporter: mocha
+          reporter: jest-junit
           fail-on-error: false
