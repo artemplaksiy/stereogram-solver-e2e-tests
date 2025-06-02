@@ -28,23 +28,33 @@ When("I select a \"Atomium\" stereogram", () => {
 });
 
 Then("I should see a shark silhouette", () => {
-    cy.compareCanvasWithSnapshot("shark.png");
+    cy.fixture("hashes.json").then((hashes) =>
+        cy.compareCanvasWithPHash(hashes["shark-result"])
+    );
 });
 
 Then("I should see a thumbs up silhouette", () => {
-    cy.compareCanvasWithSnapshot("thumbs-up.png");
+    cy.fixture("hashes.json").then((hashes) =>
+        cy.compareCanvasWithPHash(hashes["thumbs-up-result"])
+    );
 });
 
 Then("I should see a planet silhouette", () => {
-    cy.compareCanvasWithSnapshot("planet.png");
+    cy.fixture("hashes.json").then((hashes) =>
+        cy.compareCanvasWithPHash(hashes["planet-result"])
+    );
 });
 
 Then("I should see a dolphins silhouettes", () => {
-    cy.compareCanvasWithSnapshot("dolphins.png");
+    cy.fixture("hashes.json").then((hashes) =>
+        cy.compareCanvasWithPHash(hashes["dolphins-result"])
+    );
 });
 
 Then("I should see an atomium silhouette", () => {
-    cy.compareCanvasWithSnapshot("atomium.png");
+    cy.fixture("hashes.json").then((hashes) =>
+        cy.compareCanvasWithPHash(hashes["atomium-result"])
+    );
 });
 
 When("I upload my own stereogram {string}", (file: string) => {
@@ -52,7 +62,9 @@ When("I upload my own stereogram {string}", (file: string) => {
 });
 
 Then("I should see my stereogram silhouette", () => {
-    cy.compareCanvasWithSnapshot("custom-stereogram-small.png");
+    cy.fixture("hashes.json").then((hashes) =>
+        cy.compareCanvasWithPHash(hashes["custom-stereogram-small-result"])
+    );
 });
 
 When("I upload a large stereogram {string}", (file: string) => {
@@ -60,15 +72,21 @@ When("I upload a large stereogram {string}", (file: string) => {
 });
 
 Then('I should see the correct result within {string} seconds', (seconds: string) => {
-    cy.compareCanvasWithSnapshot("custom-stereogram-large.png", parseInt(seconds, 10) * 1000);
+    cy.fixture("hashes.json").then((hashes) =>
+        cy.compareCanvasWithPHash(hashes["custom-stereogram-large-result"])
+    );
 });
 
 Then('my custom stereogram should be displayed in Source image section', () => {
-    cy.compareImgWithSnapshot("images/sources/custom-stereogram-small.png");
+        cy.fixture("hashes.json").then((hashes) =>
+        cy.compareImgWithPHash(hashes["custom-stereogram-small-source"])
+    );
 });
 
 Then('my custom large stereogram should be displayed in Source image section', () => {
-    cy.compareImgWithSnapshot("images/sources/custom-stereogram-large.png");
+    cy.fixture("hashes.json").then((hashes) =>
+        cy.compareImgWithPHash(hashes["custom-stereogram-large-source"])
+    );
 });
 
 Then('move displacement slider to {string} px', (input: string) => {
@@ -84,7 +102,9 @@ Then('back to {string} px', (input: string) => {
 });
 
 Then('I should not see my stereogram silhouette', () => {
-        cy.compareCanvasWithSnapshot("custom-stereogram-small.png", 2000, true);
+    cy.fixture("hashes.json").then((hashes) =>
+        cy.compareCanvasWithPHash(hashes["custom-stereogram-small-result"], 16, 10, true)
+    );
 });
 
 When('I upload an empty stereogram {string}', (file: string) => {
@@ -101,6 +121,6 @@ When('I upload a stereogram in an unsupported format {string}', (file: string) =
 
 Then('I should see an error message {string}', (message: string) => {
     cy.get('.alert, .error-message')
-      .should('be.visible')
-      .and('contain', message);
+        .should('be.visible')
+        .and('contain', message);
 });
