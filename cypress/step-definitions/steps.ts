@@ -1,4 +1,5 @@
 import { Given, When, Then } from "@badeball/cypress-cucumber-preprocessor";
+import { should } from "chai";
 import 'cypress-file-upload';
 
 
@@ -33,25 +34,25 @@ Then("I should see a shark silhouette", () => {
 });
 
 Then("I should see a thumbs up silhouette", () => {
-        cy.fixture("hashes.json").then((hashes) =>
+    cy.fixture("hashes.json").then((hashes) =>
         cy.compareCanvasWithPHash(hashes["thumbs-up-result"])
     );
 });
 
 Then("I should see a planet silhouette", () => {
-        cy.fixture("hashes.json").then((hashes) =>
+    cy.fixture("hashes.json").then((hashes) =>
         cy.compareCanvasWithPHash(hashes["planet-result"])
     );
 });
 
 Then("I should see a dolphins silhouettes", () => {
-        cy.fixture("hashes.json").then((hashes) =>
+    cy.fixture("hashes.json").then((hashes) =>
         cy.compareCanvasWithPHash(hashes["dolphins-result"])
     );
 });
 
 Then("I should see an atomium silhouette", () => {
-        cy.fixture("hashes.json").then((hashes) =>
+    cy.fixture("hashes.json").then((hashes) =>
         cy.compareCanvasWithPHash(hashes["atomium-result"])
     );
 });
@@ -61,7 +62,7 @@ When("I upload my own stereogram {string}", (file: string) => {
 });
 
 Then("I should see my stereogram silhouette", () => {
-        cy.fixture("hashes.json").then((hashes) =>
+    cy.fixture("hashes.json").then((hashes) =>
         cy.compareCanvasWithPHash(hashes["custom-stereogram-small-result"])
     );
 });
@@ -71,17 +72,21 @@ When("I upload a large stereogram {string}", (file: string) => {
 });
 
 Then('I should see the correct result within {string} seconds', (seconds: string) => {
-        cy.fixture("hashes.json").then((hashes) =>
+    cy.fixture("hashes.json").then((hashes) =>
         cy.compareCanvasWithPHash(hashes["custom-stereogram-large-result"])
     );
 });
 
 Then('my custom stereogram should be displayed in Source image section', () => {
-    cy.compareImgWithPHash("images/sources/custom-stereogram-small.png");
+        cy.fixture("hashes.json").then((hashes) =>
+        cy.compareImgWithPHash(hashes["custom-stereogram-small-source"])
+    );
 });
 
 Then('my custom large stereogram should be displayed in Source image section', () => {
-    cy.compareImgWithPHash("images/sources/custom-stereogram-large.png");
+    cy.fixture("hashes.json").then((hashes) =>
+        cy.compareImgWithPHash(hashes["custom-stereogram-large-source"])
+    );
 });
 
 Then('move displacement slider to {string} px', (input: string) => {
@@ -99,7 +104,7 @@ Then('back to {string} px', (input: string) => {
 Then('I should not see my stereogram silhouette', () => {
     //TODO: implement it in command
     cy.fixture("hashes.json").then((hashes) =>
-        cy.compareCanvasWithPHash(hashes["custom-stereogram-small-result"])
+        cy.compareCanvasWithPHash(hashes["custom-stereogram-small-result"], 16, 10, true)
     );
 });
 

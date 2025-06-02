@@ -2,8 +2,13 @@ import { bmvbhash } from "blockhash-core";
 
 Cypress.Commands.add(
   "compareCanvasWithPHash",
-  (expectedHash: string, blockSize: number = 16, threshold: number = 10) => {
-    cy.wait(1000); //TODO: yes it's nasty!
+  (
+    expectedHash: string,
+    blockSize: number = 16,
+    threshold: number = 10,
+    shouldBeDiffer: boolean = false
+  ) => {
+    cy.wait(1000); // TODO: yes it's nasty!
     cy.get("canvas")
       .should("be.visible")
       .then(($canvas) => {
@@ -17,19 +22,24 @@ Cypress.Commands.add(
         const distance = hammingDistance(actualHash, expectedHash);
         Cypress.log({
           name: "PHash Compare",
-          message: `Actual hash: ${actualHash}, Expected: ${expectedHash}, Distance: ${distance}`,
+          message: `Actual hash: ${actualHash}, Expected: ${expectedHash}, Distance: ${distance}, Should differ: ${shouldBeDiffer}`,
         });
 
-        expect(distance).to.be.lte(threshold);
+        if (shouldBeDiffer) {
+          expect(distance).to.be.greaterThan(threshold);
+        } else {
+          expect(distance).to.be.lte(threshold);
+        }
       });
   }
 );
 
 
+
 Cypress.Commands.add(
   "compareImgWithPHash",
   (expectedHash: string, blockSize: number = 16, threshold: number = 10) => {
-    cy.wait(1000);
+    cy.wait(1000); //TODO: yes it's nasty!
     cy.get("img")
       .should("be.visible")
       .then(($img) => {

@@ -4,7 +4,7 @@
 
 declare namespace Cypress {
   interface Chainable<Subject = any> {
-    compareCanvasWithPHash(expectedHash: string, blockSize?: number, threshold?: number): Chainable<Subject>;
+    compareCanvasWithPHash(expectedHash: string, blockSize?: number, threshold?: number, shouldBeDiffer?: boolean): Chainable<Subject>;
     compareImgWithPHash(expectedHash: string, blockSize?: number, threshold?: number): Chainable<Subject>;
   }
 }
