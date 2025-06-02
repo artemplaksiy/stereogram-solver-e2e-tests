@@ -34,3 +34,7 @@ node generate-report.js
 ```
 
 This will generate a report from the test results.
+
+## External Test Reporting Capabilities
+
+After Cypress tests completed a junit XML reports will be generated in `results/junit/` directory.

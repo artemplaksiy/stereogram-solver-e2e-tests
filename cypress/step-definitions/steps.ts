@@ -102,7 +102,6 @@ Then('back to {string} px', (input: string) => {
 });
 
 Then('I should not see my stereogram silhouette', () => {
-    //TODO: implement it in command
     cy.fixture("hashes.json").then((hashes) =>
         cy.compareCanvasWithPHash(hashes["custom-stereogram-small-result"], 16, 10, true)
     );
