@@ -35,6 +35,16 @@ You need to calculate and add a hash of any new image you want to use in tests. 
 
 `node phash.js <inpit-image>`
 
+## Reporting capabilities
+
+Tree way of reporting are implemented here:
+
+1. [mocha-junit-reporter](https://github.com/michaelleeallen/mocha-junit-reporter) to be able to implement reporting to external resources
+2. [multiple-cucumber-html-reporter](https://github.com/WasiqB/multiple-cucumber-html-reporter) to generate a HTML reports
+3. [dorny/test-reporter](https://github.com/dorny/test-reporter) on the GH Action workflow level to be able to browse a resutls in the job summary details.
+
+#### Note: a JUnit and HTML reports are puhblished as an artifacts of GH workflow run
+
 
 ## Running Tests
 
@@ -70,6 +80,6 @@ node generate-report.js
 
 This will generate a report from the test results.
 
-## External Test Reporting Capabilities
+## JUnit reports
 
 After Cypress tests completed a junit XML reports will be generated in `results/junit/` directory.
