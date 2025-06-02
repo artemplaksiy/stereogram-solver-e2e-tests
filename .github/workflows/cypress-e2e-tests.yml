@@ -53,20 +53,13 @@ jobs:
           reporter: jest-junit
           fail-on-error: false
 
-      - name: Merge mochawesome JSON reports
-        if: ${{ !cancelled() }} 
-        run: |
-          mkdir -p cypress/reports/html
-          npx mochawesome-merge cypress/reports/*.json > cypress/reports/output.json
+      - name: Generate HTML report
+        if: ${{ !cancelled() }}
+        run: node generate-report.js
 
-      - name: Generate mochawesome HTML report
-        if: ${{ !cancelled() }} 
-        run: |
-          npx marge cypress/reports/output.json --reportDir cypress/reports/html --inline
-
-      - name: Upload mochawesome HTML report
-        if: ${{ !cancelled() }} 
+      - name: Upload HTML report artifact
         uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
         with:
-          name: mochawesome-html-report
-          path: cypress/reports/html/output.html
+          name: cypress-html-report
+          path: cypress/reports/html

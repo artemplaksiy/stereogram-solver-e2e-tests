@@ -4,20 +4,15 @@ import { addCucumberPreprocessorPlugin } from "@badeball/cypress-cucumber-prepro
 import createEsbuildPlugin from "@badeball/cypress-cucumber-preprocessor/esbuild";
 import { addMatchImageSnapshotPlugin } from '@simonsmith/cypress-image-snapshot/plugin'
 
+
 export default defineConfig({
   reporter: 'cypress-multi-reporters',
   reporterOptions: {
-    reporterEnabled: 'mocha-junit-reporter, mochawesome',
+    reporterEnabled: 'mocha-junit-reporter',
     mochaJunitReporterReporterOptions: {
       mochaFile: 'results/junit/test-results.[hash].xml',
-      toConsole: false,
-    },
-    mochawesomeReporterOptions: {
-      reportDir: 'cypress/reports',
-      overwrite: false,
-      html: false,
-      json: true
-    },
+      toConsole: false
+    }
   },
   e2e: {
     specPattern: "**/*.feature",

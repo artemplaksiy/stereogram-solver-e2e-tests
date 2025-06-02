@@ -16,9 +16,6 @@
 // Import commands.js using ES2015 syntax:
 import './commands'
 import {addMatchImageSnapshotCommand} from '@simonsmith/cypress-image-snapshot/command'
-import 'cypress-mochawesome-reporter/register';
-
-addMatchImageSnapshotCommand()
 
 // can also add any default options to be used
 // by all instances of `matchImageSnapshot`
