@@ -8,6 +8,11 @@ Feature: Uploaded stereograms should be displayed correctly
         Then my custom stereogram should be displayed in Source image section
         Then I should see my stereogram silhouette
 
+    Scenario: Custom stereogram should be displayed correctly for WEBP format
+        When I upload my own stereogram "skull.webp"
+        Then my custom stereogram should be displayed in Source image section
+        Then I should see my stereogram silhouette
+
     @large-stereogram
     Scenario: A large stereogram should be displayed correctly
         When I upload a large stereogram "custom-stereogram-large.png"

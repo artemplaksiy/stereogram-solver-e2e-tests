@@ -71,7 +71,6 @@ Then('my custom large stereogram should be displayed in Source image section', (
     cy.compareImgWithSnapshot("images/sources/custom-stereogram-large.png");
 });
 
-////
 Then('move displacement slider to {string} px', (input: string) => {
     cy.get('.full-width-range')
         .invoke('val', input)
@@ -86,4 +85,22 @@ Then('back to {string} px', (input: string) => {
 
 Then('I should not see my stereogram silhouette', () => {
         cy.compareCanvasWithSnapshot("custom-stereogram-small.png", 2000, true);
+});
+
+When('I upload an empty stereogram {string}', (file: string) => {
+    cy.get('input[type="file"]').attachFile(`images/sources/${file}`);
+});
+
+When('I upload a non-stereogram image {string}', (file: string) => {
+    cy.get('input[type="file"]').attachFile(`images/sources/${file}`);
+});
+
+When('I upload a stereogram in an unsupported format {string}', (file: string) => {
+    cy.get('input[type="file"]').attachFile(`images/sources/${file}`);
+});
+
+Then('I should see an error message {string}', (message: string) => {
+    cy.get('.alert, .error-message')
+      .should('be.visible')
+      .and('contain', message);
 });
