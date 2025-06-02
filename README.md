@@ -1,6 +1,41 @@
 # stereogram-solver-e2e-tests
 This is a repository for e2e testing of https://piellardj.github.io/stereogram-solver/
 
+
+## Testing framework
+
+This testing repository is based on [Cypress](https://www.cypress.io/).
+
+It follows the [Cucumber](https://cucumber.io/) BDD approach, utilizing https://github.com/badeball/cypress-cucumber-preprocessor and https://github.com/bahmutov/cypress-esbuild-preprocessor
+
+### Write your own test case
+
+You can use create you own `.feature` file to describe and test a new feature or reuse one of them. Example:
+
+<pre> Feature: Selected stereograms should be displayed correctly
+
+    Background:
+        Given I open the stereogram solver page
+
+    Scenario: "Shark" stereogram should be displayed correctly
+        When I select a "Shark" stereogram
+        Then I should see a shark silhouette </pre>
+
+## Working with images
+
+Orriginally a [pixelmatch](https://github.com/mapbox/pixelmatch) and then  [cypress-image-snapshot](https://github.com/jaredpalmer/cypress-image-snapshot) solutions was used to image comparison.
+It turned out to be very depend on the browser or OS (emulated display size, etc) aspects, os the tests were a very unstable.
+
+That is why I have implemented a [PHash](https://en.wikipedia.org/wiki/Perceptual_hashing) image comparison algorithm using [blockhash-core](https://github.com/LinusU/blockhash-core) package.
+
+It allow me to remove all unnecesarry image files and its stereogram results from the repository. They are replaced by its `phash` values in `phashes.json` file.
+
+#### Please note: 
+You need to calculate and add a hash of any new image you want to use in tests. You can use it simply by executing a `phash.js` script in `utils/` directory like this:
+
+`node phash.js <inpit-image>`
+
+
 ## Running Tests
 
 To run all Cypress tests:
