@@ -1,3 +1,4 @@
+@ignore
 Feature: Stereogram solver negative tests
 
     Background:

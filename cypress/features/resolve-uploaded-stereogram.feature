@@ -16,5 +16,5 @@ Feature: Uploaded stereograms should be displayed correctly
     @large-stereogram
     Scenario: A large stereogram should be displayed correctly
         When I upload a large stereogram "custom-stereogram-large.png"
-        Then my custom large stereogram should be displayed in Source image section
         Then I should see the correct result within "5" seconds
+        Then my custom large stereogram should be displayed in Source image section

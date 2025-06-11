@@ -73,7 +73,7 @@ When("I upload a large stereogram {string}", (file: string) => {
 
 Then('I should see the correct result within {string} seconds', (seconds: string) => {
     cy.fixture("hashes.json").then((hashes) =>
-        cy.compareCanvasWithPHash(hashes["custom-stereogram-large-result"])
+        cy.compareCanvasWithPHash(hashes["custom-stereogram-large-result"], 16, 10, false, parseInt(seconds) * 1000)
     );
 });
 

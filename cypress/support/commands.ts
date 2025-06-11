@@ -6,12 +6,12 @@ Cypress.Commands.add(
     expectedHash: string,
     blockSize: number = 16,
     threshold: number = 10,
-    shouldBeDiffer: boolean = false
+    shouldBeDiffer: boolean = false,
+    timeout: number = 1000
   ) => {
-    cy.wait(1000); // TODO: yes it's nasty!
+    const start = performance.now();
     cy.get("canvas")
-      .should("be.visible")
-      .then(($canvas) => {
+      .should(($canvas) => {
         const canvas = $canvas[0] as HTMLCanvasElement;
         const context = canvas.getContext("2d");
         if (!context) throw new Error("Could not get canvas 2D context");
@@ -20,10 +20,22 @@ Cypress.Commands.add(
         const actualHash = bmvbhash(imageData, blockSize);
 
         const distance = hammingDistance(actualHash, expectedHash);
+
         Cypress.log({
           name: "PHash Compare",
           message: `Actual hash: ${actualHash}, Expected: ${expectedHash}, Distance: ${distance}, Should differ: ${shouldBeDiffer}`,
         });
+
+
+        const duration = performance.now() - start;
+        if (duration > 1000) {
+          throw new Error(`Test logic took too long: ${duration.toFixed(0)} ms`);
+        } else {  
+          Cypress.log({
+            name: "PHash Compare",
+            message: `Test logic duration: ${duration.toFixed(0)} ms`,
+          });
+        }
 
         if (shouldBeDiffer) {
           expect(distance).to.be.greaterThan(threshold);
